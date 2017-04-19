@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browser": "./client-js/index.js",
   "sass": "styles/govuk.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
