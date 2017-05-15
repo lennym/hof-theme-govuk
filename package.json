@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/lennym/hof-theme-govuk#readme",
   "dependencies": {
-    "hof-frontend-toolkit": "^2.0.0",
+    "hof-frontend-toolkit": "^2.1.0",
     "hof-govuk-template": "^2.0.1",
-    "hof-template-partials": "^3.2.0"
+    "hof-template-partials": "^3.7.1"
   }
 }
