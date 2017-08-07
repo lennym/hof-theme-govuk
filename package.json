@@ -22,6 +22,6 @@
     "govuk-elements-sass": "^3.0.3",
     "hof-frontend-toolkit": "^2.1.0",
     "hof-govuk-template": "^2.0.1",
-    "hof-template-partials": "^3.9.0"
+    "hof-template-partials": "^4.0.0"
   }
 }
