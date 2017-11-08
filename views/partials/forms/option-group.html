@@ -19,7 +19,8 @@
                 {{#error}} aria-describedby="{{key}}-error" aria-invalid="true"{{/error}}
             >
             <label class="block-label" for="{{key}}-{{value}}">
-                {{{label}}}
+                {{#header}}<h2>{{header}}</h2>{{/header}}
+                <span>{{{label}}}</span>
             </label>
         </div>
         {{#renderChild}}{{/renderChild}}
