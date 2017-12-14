@@ -5,6 +5,10 @@
     }
 }
 
+#content {
+    margin: 0;
+}
+
 .main {
     @extend %site-width-container;
     padding-bottom: $gutter;
@@ -16,6 +20,9 @@
 .grid-row {
     @extend %grid-row;
     position: relative;
+    &#content {
+        @extend %grid-row;
+    }
 }
 
 .column-full {
