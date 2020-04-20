@@ -15,11 +15,12 @@
                 required="true"
                 {{#toggle}} data-toggle="{{toggle}}"{{/toggle}}
                 {{#selected}} checked="checked"{{/selected}}
-                {{^error}}{{#hint}} aria-describedby="{{key}}-hint"{{/hint}}{{/error}}
+                {{^error}}{{#hint}} aria-describedby="{{key}}-{{value}}-hint"{{/hint}}{{/error}}
                 {{#error}} aria-describedby="{{key}}-error" aria-invalid="true"{{/error}}
             >
             <label class="block-label" for="{{key}}-{{value}}">
                 {{{label}}}
+                {{#hint}}<span id="{{key}}-{{value}}-hint" class="form-hint">{{hint}}</span>{{/hint}}
             </label>
         </div>
         {{#renderChild}}{{/renderChild}}
