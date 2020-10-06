@@ -5,10 +5,11 @@ var helpers = toolkit.helpers;
 var progressiveReveal = toolkit.progressiveReveal;
 var formFocus = toolkit.formFocus;
 
-var cookieBanner = require('./cookieBanner');
+var cookieSettings = require('./cookieSettings');
 
 toolkit.detailsSummary();
 
 helpers.documentReady(progressiveReveal);
 helpers.documentReady(formFocus);
-helpers.documentReady(cookieBanner.initialiseCookieBanner());
+helpers.documentReady(cookieSettings.initialiseCookieBanner);
+helpers.documentReady(cookieSettings.initialiseCookiePage);
