@@ -3,9 +3,6 @@
 // TODO: update banner on selection to dismissable message confirming choice
 // TODO: update cookie page on selection (use confirmation alert?) && dismiss banner
 
-// TODO: set banner visibility based on cookie preferences
-// TODO: initialise gaTag based on cookie preferences
-
 // TODO: aria-labels
 
 function hideFallbackContent(containerId) {
@@ -41,6 +38,12 @@ function initialiseBannerButtons() {
 }
 
 function initialiseCookieBanner() {
+  const preferences = GOVUK.cookie('cookie_preferences');
+
+  if (preferences !== null) {
+    return;
+  }
+
   // the default cookie message container from hof-govuk-template
   var bannerContainer = document.getElementById('global-cookie-message');
 

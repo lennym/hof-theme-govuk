@@ -13,7 +13,7 @@ describe('ga-tag', () => {
   beforeEach(() => {
     GOVUK = { cookie: jest.fn() };
     global.GOVUK = GOVUK;
-    GOVUK.cookie.mockReturnValue('{}');
+    GOVUK.cookie.mockReturnValue(null);
   });
 
   afterEach(() => {
@@ -33,6 +33,12 @@ describe('ga-tag', () => {
 
     afterEach(() => {
       document.body.removeChild(bannerContainer);
+    });
+
+    test('it should not alter banner display style if cookie preferences are already set', () => {
+      GOVUK.cookie.mockReturnValueOnce('{"essential":true,"usage":true}');
+      cookieSettings.initialiseCookieBanner();
+      expect(bannerContainer.style.display).toEqual('');
     });
 
     test('it should show banner container if container and banner are both present', () => {
@@ -62,14 +68,14 @@ describe('ga-tag', () => {
         cookieSettings.initialiseCookieBanner();
         let expected = '{"essential":true,"usage":true}';
         document.getElementById('accept-cookies-button').click();
-        expect(GOVUK.cookie).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
       test('it should set usage false on clicking `no` button', () => {
         cookieSettings.initialiseCookieBanner();
         let expected = '{"essential":true,"usage":false}';
         document.getElementById('reject-cookies-button').click();
-        expect(GOVUK.cookie).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
     });
