@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: set cookie preference on cookie page button click
-
 // TODO: update banner on selection to dismissable message confirming choice
 // TODO: update cookie page on selection (use confirmation alert?) && dismiss banner
 
@@ -57,6 +55,11 @@ function initialiseCookieBanner() {
   }
 }
 
+function handleSaveSettings(e) {
+  e.preventDefault();
+  setCookiePreferences({ essential: true, usage: document.getElementById('radio-1').checked })
+}
+
 function initialiseFormControls() {
   var preferences = JSON.parse(GOVUK.cookie('cookie_preferences'));
   var usage;
@@ -69,6 +72,7 @@ function initialiseFormControls() {
 
   document.getElementById('radio-1').checked = usage;
   document.getElementById('radio-2').checked = !usage;
+  document.getElementById('save-cookie-settings').addEventListener('click', handleSaveSettings);
 }
 
 function initialiseCookiePage() {

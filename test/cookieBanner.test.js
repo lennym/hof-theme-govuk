@@ -86,7 +86,14 @@ describe('ga-tag', () => {
 
       let jsEnabled = document.createElement('div');
       jsEnabled.classList.add('js-enabled');
-      jsEnabled.innerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-settings-radio.html'), 'utf8');
+
+      let radioButtons = document.createElement('div');
+      jsEnabled.appendChild(radioButtons);
+      radioButtons.outerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-settings-radio.html'), 'utf8');
+
+      let submitButton = document.createElement('div');
+      jsEnabled.appendChild(submitButton);
+      submitButton.outerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-settings-button.html'), 'utf8');
 
       let jsDisabled = document.createElement('div');
       jsDisabled.classList.add('js-disabled');
@@ -144,6 +151,22 @@ describe('ga-tag', () => {
         cookieSettings.initialiseCookiePage();
         expect(document.getElementById('radio-1').checked).toEqual(false);
         expect(document.getElementById('radio-2').checked).toEqual(true);
+      });
+
+      test('it should set usage true on submit with first radio button checked', () => {
+        cookieSettings.initialiseCookiePage();
+        let expected = '{"essential":true,"usage":true}';
+        document.getElementById('radio-1').click();
+        document.getElementById('save-cookie-settings').click();
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
+      });
+
+      test('it should set usage false on submit with second radio button checked', () => {
+        cookieSettings.initialiseCookiePage();
+        let expected = '{"essential":true,"usage":false}';
+        document.getElementById('radio-2').click();
+        document.getElementById('save-cookie-settings').click();
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
     });
