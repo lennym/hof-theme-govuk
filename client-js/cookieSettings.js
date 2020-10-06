@@ -1,7 +1,6 @@
 'use strict';
 
 // TODO: update banner on selection to dismissable message confirming choice
-// TODO: update cookie page on selection (use confirmation alert?) && dismiss banner
 
 // TODO: aria-labels
 
@@ -33,13 +32,21 @@ function setCookiePreferences(preferences) {
   }
 }
 
+function showCookieBannerSubmitted() {
+  document.getElementById('cookie-banner-info').style.display = 'none';
+  document.getElementById('cookie-banner-actions').style.display = 'none';
+  document.getElementById('cookie-banner-submitted').style.display = 'flex';
+}
+
 function initialiseBannerButtons() {
   document.getElementById('accept-cookies-button').addEventListener('click', () => {
-    setCookiePreferences({essential: true, usage: true})
+    setCookiePreferences({essential: true, usage: true});
+    showCookieBannerSubmitted();
   });
 
   document.getElementById('reject-cookies-button').addEventListener('click', () => {
-    setCookiePreferences({essential: true, usage: false})
+    setCookiePreferences({essential: true, usage: false});
+    showCookieBannerSubmitted();
   });
 }
 

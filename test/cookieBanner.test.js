@@ -78,6 +78,19 @@ describe('ga-tag', () => {
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
+      test('it should show cookie submitted message on either button click', () => {
+        cookieSettings.initialiseCookieBanner();
+        document.getElementById('accept-cookies-button').click();
+        expect(document.getElementById('cookie-banner-submitted').style.display).toEqual('flex');
+      });
+
+      test('it should hide cookie banner info and actions on either button click', () => {
+        cookieSettings.initialiseCookieBanner();
+        document.getElementById('accept-cookies-button').click();
+        expect(document.getElementById('cookie-banner-info').style.display).toEqual('none');
+        expect(document.getElementById('cookie-banner-actions').style.display).toEqual('none');
+      });
+
     });
 
   });
