@@ -101,6 +101,10 @@ describe('ga-tag', () => {
       jsEnabled.appendChild(submitButton);
       submitButton.outerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-settings-button.html'), 'utf8');
 
+      let cookieNotification = document.createElement('div');
+      jsEnabled.appendChild(cookieNotification);
+      cookieNotification.outerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-notification.html'), 'utf8');
+
       let jsDisabled = document.createElement('div');
       jsDisabled.classList.add('js-disabled');
 
@@ -182,6 +186,22 @@ describe('ga-tag', () => {
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(3, '_ga', null);
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(4, '_gat', null);
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(5, '_gid', null);
+      });
+
+      test('it should show the cookie notification on submit', () => {
+        cookieSettings.initialiseCookiePage();
+        document.getElementById('save-cookie-settings').click();
+        expect(document.getElementById('cookie-notification').style.display).toEqual('block');
+      });
+
+      test('it should hide the cookie banner on submit', () => {
+        let testBanner = document.createElement('div');
+        testBanner.id = 'cookie-banner';
+        document.body.appendChild(testBanner);
+
+        cookieSettings.initialiseCookiePage();
+        document.getElementById('save-cookie-settings').click();
+        expect(document.getElementById('cookie-banner').style.display).toEqual('none');
       });
 
     });

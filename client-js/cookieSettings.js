@@ -66,7 +66,18 @@ function initialiseCookieBanner() {
 
 function handleSaveSettings(e) {
   e.preventDefault();
-  setCookiePreferences({ essential: true, usage: document.getElementById('radio-1').checked })
+  setCookiePreferences({ essential: true, usage: document.getElementById('radio-1').checked });
+
+  var cookieNotification = document.getElementById('cookie-notification');
+  var cookieBanner = document.getElementById('cookie-banner');
+
+  if (cookieNotification !== null) {
+    cookieNotification.style.display = 'block';
+  }
+
+  if (cookieBanner !== null) {
+    cookieBanner.style.display = 'none';
+  }
 }
 
 function initialiseFormControls() {
