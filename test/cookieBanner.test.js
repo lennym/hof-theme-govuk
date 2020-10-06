@@ -175,6 +175,15 @@ describe('ga-tag', () => {
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
+      test('it should delete google analytics cookies on submit with second radio button checked', () => {
+        cookieSettings.initialiseCookiePage();
+        document.getElementById('radio-2').click();
+        document.getElementById('save-cookie-settings').click();
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(3, '_ga', null);
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(4, '_gat', null);
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(5, '_gid', null);
+      });
+
     });
 
   });

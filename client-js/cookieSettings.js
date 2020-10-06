@@ -25,6 +25,12 @@ function showInteractiveContent(containerId) {
 
 function setCookiePreferences(preferences) {
   GOVUK.cookie('cookie_preferences', JSON.stringify(preferences), { days: 30 });
+
+  if (!preferences.usage) {
+    GOVUK.cookie('_ga', null);
+    GOVUK.cookie('_gat', null);
+    GOVUK.cookie('_gid', null);
+  }
 }
 
 function initialiseBannerButtons() {
