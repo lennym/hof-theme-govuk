@@ -87,4 +87,32 @@ describe('ga-tag', () => {
 
   });
 
+  describe('setCookiePreferences', () => {
+
+    let GOVUK;
+    let spy;
+
+    beforeEach(() => {
+      GOVUK = {
+        cookie: (name, value, options) => {}
+      };
+
+      global.GOVUK = GOVUK;
+
+      spy = jest.spyOn(GOVUK, 'cookie');
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('it should pass preferences to GOVUK helper method as JSON  with 30-day TTL', () => {
+      let value = { essential: true, usage: false };
+      let expected = '{"essential":true,"usage":false}';
+      cookieSettings.setCookiePreferences(value);
+      expect(spy).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
+    });
+
+  });
+
 });

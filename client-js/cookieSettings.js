@@ -28,6 +28,10 @@ function showInteractiveContent(containerId) {
   }
 }
 
+function setCookiePreferences(preferences) {
+  GOVUK.cookie('cookie_preferences', JSON.stringify(preferences), { days: 30 });
+}
+
 function initialiseCookieBanner() {
   // the default cookie message container from hof-govuk-template
   var bannerContainer = document.getElementById('global-cookie-message');
@@ -53,5 +57,6 @@ function initialiseCookiePage() {
 
 module.exports = {
   initialiseCookieBanner,
-  initialiseCookiePage
+  initialiseCookiePage,
+  setCookiePreferences
 };
