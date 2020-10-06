@@ -85,6 +85,7 @@ describe('ga-tag', () => {
   describe('cookie page', () => {
 
     let cookieSettingsContainer;
+    let scrollIntoViewMock;
 
     beforeEach(() => {
       cookieSettingsContainer = document.createElement('div');
@@ -111,6 +112,9 @@ describe('ga-tag', () => {
       document.body.appendChild(cookieSettingsContainer);
       cookieSettingsContainer.appendChild(jsEnabled);
       cookieSettingsContainer.appendChild(jsDisabled);
+
+      scrollIntoViewMock = jest.fn();
+      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
     });
 
     afterEach(() => {

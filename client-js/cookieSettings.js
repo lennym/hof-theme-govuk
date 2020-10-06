@@ -73,6 +73,7 @@ function handleSaveSettings(e) {
 
   if (cookieNotification !== null) {
     cookieNotification.style.display = 'block';
+    cookieNotification.scrollIntoView();
   }
 
   if (cookieBanner !== null) {
