@@ -1,11 +1,11 @@
 'use strict';
 
-// TODO: re-usable set cookie preference method
+// TODO: set cookie preference on cookie page button click
+
 // TODO: update banner on selection to dismissable message confirming choice
 // TODO: update cookie page on selection (use confirmation alert?) && dismiss banner
 
 // TODO: set banner visibility based on cookie preferences
-// TODO: set default radio button selection based on cookie preferences
 // TODO: initialise gaTag based on cookie preferences
 
 // TODO: aria-labels
@@ -32,6 +32,16 @@ function setCookiePreferences(preferences) {
   GOVUK.cookie('cookie_preferences', JSON.stringify(preferences), { days: 30 });
 }
 
+function initialiseBannerButtons() {
+  document.getElementById('accept-cookies-button').addEventListener('click', () => {
+    setCookiePreferences({essential: true, usage: true})
+  });
+
+  document.getElementById('reject-cookies-button').addEventListener('click', () => {
+    setCookiePreferences({essential: true, usage: false})
+  });
+}
+
 function initialiseCookieBanner() {
   // the default cookie message container from hof-govuk-template
   var bannerContainer = document.getElementById('global-cookie-message');
@@ -43,7 +53,22 @@ function initialiseCookieBanner() {
     hideFallbackContent('global-cookie-message');
     showInteractiveContent('global-cookie-message');
     bannerContainer.style.display = 'block';
+    initialiseBannerButtons();
   }
+}
+
+function initialiseFormControls() {
+  var preferences = JSON.parse(GOVUK.cookie('cookie_preferences'));
+  var usage;
+
+  if (preferences !== null && preferences.usage !== undefined && typeof preferences.usage === "boolean") {
+    usage = preferences.usage;
+  } else {
+    usage = true;
+  }
+
+  document.getElementById('radio-1').checked = usage;
+  document.getElementById('radio-2').checked = !usage;
 }
 
 function initialiseCookiePage() {
@@ -52,11 +77,11 @@ function initialiseCookiePage() {
   if (shouldDisplayCookieControls) {
     hideFallbackContent('cookie-settings');
     showInteractiveContent('cookie-settings');
+    initialiseFormControls();
   }
 }
 
 module.exports = {
   initialiseCookieBanner,
-  initialiseCookiePage,
-  setCookiePreferences
+  initialiseCookiePage
 };

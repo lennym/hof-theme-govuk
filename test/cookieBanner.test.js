@@ -8,7 +8,19 @@ const cookieSettings = require('../client-js/cookieSettings');
 
 describe('ga-tag', () => {
 
-  describe('initialiseCookieBanner', () => {
+  let GOVUK;
+
+  beforeEach(() => {
+    GOVUK = { cookie: jest.fn() };
+    global.GOVUK = GOVUK;
+    GOVUK.cookie.mockReturnValue('{}');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('cookie banner', () => {
 
     let bannerContainer;
 
@@ -44,9 +56,27 @@ describe('ga-tag', () => {
       }
     });
 
+    describe('cookie banner buttons', () => {
+
+      test('it should set usage true on clicking `yes` button', () => {
+        cookieSettings.initialiseCookieBanner();
+        let expected = '{"essential":true,"usage":true}';
+        document.getElementById('accept-cookies-button').click();
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
+      });
+
+      test('it should set usage false on clicking `no` button', () => {
+        cookieSettings.initialiseCookieBanner();
+        let expected = '{"essential":true,"usage":false}';
+        document.getElementById('reject-cookies-button').click();
+        expect(GOVUK.cookie).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
+      });
+
+    });
+
   });
 
-  describe('initialiseCookiePage', () => {
+  describe('cookie page', () => {
 
     let cookieSettingsContainer;
 
@@ -56,6 +86,7 @@ describe('ga-tag', () => {
 
       let jsEnabled = document.createElement('div');
       jsEnabled.classList.add('js-enabled');
+      jsEnabled.innerHTML = fs.readFileSync(path.join(__dirname, '../node_modules/hof-template-partials/views/partials/cookie-settings-radio.html'), 'utf8');
 
       let jsDisabled = document.createElement('div');
       jsDisabled.classList.add('js-disabled');
@@ -85,32 +116,36 @@ describe('ga-tag', () => {
       }
     });
 
-  });
+    describe('cookie page form controls', () => {
 
-  describe('setCookiePreferences', () => {
+      test('it should set first radio button checked if usage is true', () => {
+        GOVUK.cookie.mockReturnValueOnce('{"usage": true}');
+        cookieSettings.initialiseCookiePage();
+        expect(document.getElementById('radio-1').checked).toEqual(true);
+        expect(document.getElementById('radio-2').checked).toEqual(false);
+      });
 
-    let GOVUK;
-    let spy;
+      test('it should set first radio button checked if usage is not defined', () => {
+        GOVUK.cookie.mockReturnValueOnce('{}');
+        cookieSettings.initialiseCookiePage();
+        expect(document.getElementById('radio-1').checked).toEqual(true);
+        expect(document.getElementById('radio-2').checked).toEqual(false);
+      });
 
-    beforeEach(() => {
-      GOVUK = {
-        cookie: (name, value, options) => {}
-      };
+      test('it should set first radio button checked if preferences is unset', () => {
+        GOVUK.cookie.mockReturnValueOnce(null);
+        cookieSettings.initialiseCookiePage();
+        expect(document.getElementById('radio-1').checked).toEqual(true);
+        expect(document.getElementById('radio-2').checked).toEqual(false);
+      });
 
-      global.GOVUK = GOVUK;
+      test('it should set second radio button checked if usage is false', () => {
+        GOVUK.cookie.mockReturnValueOnce('{"usage": false}');
+        cookieSettings.initialiseCookiePage();
+        expect(document.getElementById('radio-1').checked).toEqual(false);
+        expect(document.getElementById('radio-2').checked).toEqual(true);
+      });
 
-      spy = jest.spyOn(GOVUK, 'cookie');
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    test('it should pass preferences to GOVUK helper method as JSON  with 30-day TTL', () => {
-      let value = { essential: true, usage: false };
-      let expected = '{"essential":true,"usage":false}';
-      cookieSettings.setCookiePreferences(value);
-      expect(spy).toHaveBeenNthCalledWith(1, 'cookie_preferences', expected, { days: 30 });
     });
 
   });
