@@ -91,6 +91,12 @@ describe('ga-tag', () => {
         expect(document.getElementById('cookie-banner-actions').style.display).toEqual('none');
       });
 
+      test('it should hide cookie banner on clicking `hide` button', () => {
+        cookieSettings.initialiseCookieBanner();
+        document.getElementById('hide-cookie-banner').click();
+        expect(document.getElementById('cookie-banner').style.display).toEqual('none');
+      });
+
     });
 
   });

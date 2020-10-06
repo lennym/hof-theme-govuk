@@ -48,6 +48,10 @@ function initialiseBannerButtons() {
     setCookiePreferences({essential: true, usage: false});
     showCookieBannerSubmitted();
   });
+
+  document.getElementById('hide-cookie-banner').addEventListener('click', () => {
+    document.getElementById('cookie-banner').style.display = 'none';
+  });
 }
 
 function initialiseCookieBanner() {
