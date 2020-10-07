@@ -1,8 +1,6 @@
 'use strict';
 
-// TODO: update banner on selection to dismissable message confirming choice
-
-// TODO: aria-labels
+// TODO: update package.json(s)
 
 function hideFallbackContent(containerId) {
   var container = document.getElementById(containerId);
@@ -35,7 +33,9 @@ function setCookiePreferences(preferences) {
 function showCookieBannerSubmitted() {
   document.getElementById('cookie-banner-info').style.display = 'none';
   document.getElementById('cookie-banner-actions').style.display = 'none';
-  document.getElementById('cookie-banner-submitted').style.display = 'flex';
+  var cookieBannerSubmitted = document.getElementById('cookie-banner-submitted');
+  cookieBannerSubmitted.style.display = 'flex';
+  cookieBannerSubmitted.focus();
 }
 
 function initialiseBannerButtons() {
@@ -82,14 +82,15 @@ function handleSaveSettings(e) {
   var cookieNotification = document.getElementById('cookie-notification');
   var cookieBanner = document.getElementById('cookie-banner');
 
-  if (cookieNotification !== null) {
-    cookieNotification.style.display = 'block';
-    cookieNotification.scrollIntoView();
-  }
-
   if (cookieBanner !== null) {
     cookieBanner.style.display = 'none';
   }
+
+  if (cookieNotification !== null) {
+    cookieNotification.style.display = 'block';
+    cookieNotification.focus();
+  }
+
 }
 
 function initialiseFormControls() {

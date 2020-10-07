@@ -9,11 +9,14 @@ const cookieSettings = require('../client-js/cookieSettings');
 describe('ga-tag', () => {
 
   let GOVUK;
+  let focusMock;
 
   beforeEach(() => {
     GOVUK = { cookie: jest.fn() };
     global.GOVUK = GOVUK;
     GOVUK.cookie.mockReturnValue(null);
+    focusMock = jest.fn();
+    window.HTMLElement.prototype.focus = focusMock;
   });
 
   afterEach(() => {
@@ -78,10 +81,11 @@ describe('ga-tag', () => {
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(2, 'cookie_preferences', expected, { days: 30 });
       });
 
-      test('it should show cookie submitted message on either button click', () => {
+      test('it should show and focus cookie submitted message on either button click', () => {
         cookieSettings.initialiseCookieBanner();
         document.getElementById('accept-cookies-button').click();
         expect(document.getElementById('cookie-banner-submitted').style.display).toEqual('flex');
+        expect(focusMock).toBeCalledTimes(1);
       });
 
       test('it should hide cookie banner info and actions on either button click', () => {
@@ -104,7 +108,6 @@ describe('ga-tag', () => {
   describe('cookie page', () => {
 
     let cookieSettingsContainer;
-    let scrollIntoViewMock;
 
     beforeEach(() => {
       cookieSettingsContainer = document.createElement('div');
@@ -131,9 +134,6 @@ describe('ga-tag', () => {
       document.body.appendChild(cookieSettingsContainer);
       cookieSettingsContainer.appendChild(jsEnabled);
       cookieSettingsContainer.appendChild(jsDisabled);
-
-      scrollIntoViewMock = jest.fn();
-      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
     });
 
     afterEach(() => {
@@ -211,10 +211,11 @@ describe('ga-tag', () => {
         expect(GOVUK.cookie).toHaveBeenNthCalledWith(5, '_gid', null);
       });
 
-      test('it should show the cookie notification on submit', () => {
+      test('it should show and focus the cookie notification on submit', () => {
         cookieSettings.initialiseCookiePage();
         document.getElementById('save-cookie-settings').click();
         expect(document.getElementById('cookie-notification').style.display).toEqual('block');
+        expect(focusMock).toBeCalledTimes(1);
       });
 
       test('it should hide the cookie banner on submit', () => {
