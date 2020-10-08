@@ -39,17 +39,17 @@ function showCookieBannerSubmitted() {
 }
 
 function initialiseBannerButtons() {
-  document.getElementById('accept-cookies-button').addEventListener('click', () => {
+  document.getElementById('accept-cookies-button').addEventListener('click', function() {
     setCookiePreferences({essential: true, usage: true});
     showCookieBannerSubmitted();
   });
 
-  document.getElementById('reject-cookies-button').addEventListener('click', () => {
+  document.getElementById('reject-cookies-button').addEventListener('click', function() {
     setCookiePreferences({essential: true, usage: false});
     showCookieBannerSubmitted();
   });
 
-  document.getElementById('hide-cookie-banner').addEventListener('click', () => {
+  document.getElementById('hide-cookie-banner').addEventListener('click', function() {
     document.getElementById('cookie-banner').style.display = 'none';
   });
 }
@@ -119,6 +119,6 @@ function initialiseCookiePage() {
 }
 
 module.exports = {
-  initialiseCookieBanner,
-  initialiseCookiePage
+  initialiseCookieBanner: initialiseCookieBanner,
+  initialiseCookiePage: initialiseCookiePage
 };
