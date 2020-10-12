@@ -18,6 +18,8 @@ $path: "/public/images/" !default;
 @import "typography";
 @import "variables";
 @import "helpers";
+@import "cookie-banner";
+@import "cookie-settings";
 
 // Modules
 @import "modules/validation";
