@@ -1,6 +1,6 @@
 {
   "name": "hof-theme-govuk",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "",
   "main": "index.js",
   "browser": "./client-js/index.js",
