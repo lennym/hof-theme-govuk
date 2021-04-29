@@ -100,7 +100,7 @@ function initialiseFormControls() {
   if (preferences !== null && preferences.usage !== undefined && typeof preferences.usage === "boolean") {
     usage = preferences.usage;
   } else {
-    usage = true;
+    usage = false;
   }
 
   document.getElementById('radio-1').checked = usage;

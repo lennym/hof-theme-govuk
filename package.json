@@ -1,6 +1,6 @@
 {
   "name": "hof-theme-govuk",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "",
   "main": "index.js",
   "browser": "./client-js/index.js",
@@ -22,7 +22,7 @@
     "govuk-elements-sass": "^3.0.3",
     "hof-frontend-toolkit": "^2.1.0",
     "hof-govuk-template": "^2.0.1",
-    "hof-template-partials": "^5.1.1"
+    "hof-template-partials": "^5.3.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
