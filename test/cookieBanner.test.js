@@ -165,18 +165,18 @@ describe('ga-tag', () => {
         expect(document.getElementById('radio-2').checked).toEqual(false);
       });
 
-      test('it should set first radio button checked if usage is not defined', () => {
+      test('it should set second radio button checked if usage is not defined', () => {
         GOVUK.cookie.mockReturnValueOnce('{}');
         cookieSettings.initialiseCookiePage();
-        expect(document.getElementById('radio-1').checked).toEqual(true);
-        expect(document.getElementById('radio-2').checked).toEqual(false);
+        expect(document.getElementById('radio-1').checked).toEqual(false);
+        expect(document.getElementById('radio-2').checked).toEqual(true);
       });
 
-      test('it should set first radio button checked if preferences is unset', () => {
+      test('it should set second radio button checked if preferences is unset', () => {
         GOVUK.cookie.mockReturnValueOnce(null);
         cookieSettings.initialiseCookiePage();
-        expect(document.getElementById('radio-1').checked).toEqual(true);
-        expect(document.getElementById('radio-2').checked).toEqual(false);
+        expect(document.getElementById('radio-1').checked).toEqual(false);
+        expect(document.getElementById('radio-2').checked).toEqual(true);
       });
 
       test('it should set second radio button checked if usage is false', () => {
