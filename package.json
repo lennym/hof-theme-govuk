@@ -1,6 +1,6 @@
 {
   "name": "hof-theme-govuk",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "description": "",
   "main": "index.js",
   "browser": "./client-js/index.js",
@@ -20,9 +20,9 @@
   "homepage": "https://github.com/lennym/hof-theme-govuk#readme",
   "dependencies": {
     "govuk-elements-sass": "^3.0.3",
-    "hof-frontend-toolkit": "^2.1.0",
-    "hof-govuk-template": "^2.0.1",
-    "hof-template-partials": "^5.3.5"
+    "hof-frontend-toolkit": "^2.4.1",
+    "hof-govuk-template": "^2.1.0",
+    "hof-template-partials": "^5.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
